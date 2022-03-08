@@ -21,18 +21,17 @@ public class BurgerManager {
         return burgerList.get(numberOfBurger);
     }
 
-    public void getAllBurgers() {
-        Collection<Burger> allConfiguredBurgers = burgerList.values();
-        for (Burger burger : allConfiguredBurgers) {
-            System.out.println(burger);
+    public Collection<Burger> getAllBurgers() {
+      return burgerList.values();
         }
-    }
 
     public void addIngredient(int numberOfBurger, OptionalIngredients optionalIngredients) {
+
         if (OptionalIngredients.CHEESE.equals(optionalIngredients)) {
             getBurgerByNumber(numberOfBurger).setCheese(true);
             getBurgerByNumber(numberOfBurger).setPrice(getBurgerByNumber(numberOfBurger).getPrice() + 1.5);
         }
+
         if (OptionalIngredients.SALAD.equals(optionalIngredients)) {
             getBurgerByNumber(numberOfBurger).setSalad(true);
             getBurgerByNumber(numberOfBurger).setPrice(getBurgerByNumber(numberOfBurger).getPrice() + 1);
@@ -44,10 +43,13 @@ public class BurgerManager {
     }
 
     public double calculatePriceOfOrder() {
+
         if (burgerList.size() == 1) {
             return getBurgerByNumber(1).getPrice();
+
         } else if (burgerList.size() == 2) {
             return getBurgerByNumber(1).getPrice() + getBurgerByNumber(2).getPrice();
+
         } else if (burgerList.size() == 3) {
             return getBurgerByNumber(1).getPrice() + getBurgerByNumber(2).getPrice() +
                     getBurgerByNumber(3).getPrice();

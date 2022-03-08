@@ -108,7 +108,7 @@ public class InputExecutor {
     public void displayBurgersConfiguredSoFarWithPrice() {
 
         System.out.println("Bisher konfigurierte Burger:");
-        burgerManager.getAllBurgers();
+        System.out.println(burgerManager.getAllBurgers());
         System.out.println("Zwischensumme: " + burgerManager.calculatePriceOfOrder() + "€");
     }
 
@@ -144,7 +144,7 @@ public class InputExecutor {
                                 burgerManager.getBurgerByNumber(numberOfBurgerThatShouldBeRemoved + 2));
                     }
                     System.out.println("Ihr aktualisierter Warenkorb:");
-                    burgerManager.getAllBurgers();
+                    System.out.println(burgerManager.getAllBurgers());
                     System.out.println("Zwischensumme: " + burgerManager.calculatePriceOfOrder() + "€");
                 } else {
                     System.out.println("Fehler: Burger mit dieser Burgernummer konnte nicht gefunden werden.");
@@ -202,7 +202,7 @@ public class InputExecutor {
 
     public void terminateOrder() {
         System.out.println("Zusammenfassung Ihrer Bestellung:");
-        burgerManager.getAllBurgers();
+        System.out.println(burgerManager.getAllBurgers());
         System.out.println("Summe: " + burgerManager.calculatePriceOfOrder() + "€");
         System.out.println("Wir danken für Ihre Bestellung!");
     }

@@ -24,14 +24,13 @@ public class Burger {
 
     @Override
     public String toString() {
-        return "Burger[" +
+        return "Burger: " +
                 "Burgernummer: " + numberOfBurger +
                 ", Patty: " + patty +
                 ", Käse: " + cheese +
                 ", Salat: " + salad +
                 ", Tomaten: " + tomato +
-                ", Preis: " + price + "€" +
-                ']';
+                ", Preis: " + price + "€";
     }
 
     public int getNumberOfBurger() {
