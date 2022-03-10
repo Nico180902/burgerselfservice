@@ -8,6 +8,8 @@ package com.ntraining.input;
 // <> braces => generics
 public interface ExecutionStep<T> {
 
+    String getPrompt();
+
     ValidatedInput<T> validate(String stringInput);
 
     void execute(T input);
