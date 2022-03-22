@@ -1,21 +1,39 @@
 package com.ntraining.input.actions;
 
-public class RemoveBurgerAction implements ActionValidator {
+import com.ntraining.Cart;
+
+public class RemoveBurgerAction implements Action {
+
+    private final Cart cart;
+
+    public RemoveBurgerAction(Cart cart) {
+        this.cart = cart;
+    }
 
     @Override
-    public boolean isValidAction(String input) {
+    public boolean executeIfValid(String input) {
+        Integer burgerId = validate(input);
+
+        if (burgerId == null) {
+            return false;
+        }
+
+        return execute(burgerId);
+    }
+
+    private Integer validate(String input) {
         if (input == null) {
-           return false;
+            return null;
         }
 
         String[] actionParts = input.split(",");
 
         if (actionParts.length != 2) {
-            return false;
+            return null;
         }
 
         if (!"-Burger".equals(actionParts[0])) {
-            return false;
+            return null;
         }
 
         int burgerId;
@@ -23,9 +41,14 @@ public class RemoveBurgerAction implements ActionValidator {
             burgerId = Integer.parseInt(actionParts[1]);
         } catch (NumberFormatException e) {
             System.out.println(actionParts[1] + " is not a valid burger id.");
-            return false;
+            return null;
         }
 
-        return burgerId <= 3;
+        return burgerId <= cart.getBurgers().size() ?
+                burgerId : null;
+    }
+
+    private boolean execute(int burgerId) {
+        return cart.removeBurgerByIndex(burgerId - 1);
     }
 }

@@ -1,16 +1,23 @@
 package com.ntraining.input;
 
-// steps in exercise
-// empty cart -> can only add
-// filled, not full cart -> can view, can remove, can add, can checkout
-// full cart -> can remove, can checkout
+import com.ntraining.input.actions.Action;
 
-// <> braces => generics
-public interface ExecutionStep<T> {
+import java.util.Collection;
+
+public interface ExecutionStep {
 
     String getPrompt();
 
-    ValidatedInput<T> validate(String stringInput);
+    Collection<Action> getPossibleActions();
 
-    void execute(T input);
+    boolean isResponsible();
+
+    default void executeIfValid(String input) {
+        Collection<Action> actions = getPossibleActions();
+        for (Action action : actions) {
+            if (action.executeIfValid(input)) {
+                return;
+            }
+        }
+    }
 }

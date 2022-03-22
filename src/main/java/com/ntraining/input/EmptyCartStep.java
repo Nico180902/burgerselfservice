@@ -1,11 +1,28 @@
 package com.ntraining.input;
 
-public class EmptyCartStep implements ExecutionStep<EmptyCartInput> {
+import com.google.common.collect.ImmutableSet;
+import com.ntraining.Cart;
+import com.ntraining.input.actions.Action;
+import com.ntraining.input.actions.AddBurgerAction;
+
+import java.util.Collection;
+
+public class EmptyCartStep implements ExecutionStep {
 
     private static final String PROMPT = """
             Your cart is empty.
             """
             + BurgerConstants.ADD_BURGER_PROMPT;
+
+    private final Collection<Action> possibleActions;
+    private final Cart cart;
+
+    public EmptyCartStep(Cart cart) {
+        this.cart = cart;
+        possibleActions = ImmutableSet.of(
+                new AddBurgerAction(cart)
+        );
+    }
 
     @Override
     public String getPrompt() {
@@ -13,12 +30,12 @@ public class EmptyCartStep implements ExecutionStep<EmptyCartInput> {
     }
 
     @Override
-    public ValidatedInput<EmptyCartInput> validate(String input) {
-        return null;
+    public Collection<Action> getPossibleActions() {
+        return possibleActions;
     }
 
     @Override
-    public void execute(EmptyCartInput executable) {
-
+    public boolean isResponsible() {
+        return cart.getBurgers().isEmpty();
     }
 }

@@ -4,6 +4,8 @@ import com.ntraining.input.actions.CheckoutAction;
 import com.ntraining.input.actions.SummaryAction;
 
 public class BurgerConstants {
+    public static final int CART_MAX_SIZE = 3;
+
     public static final String ADD_BURGER_PROMPT = """
             To add a burger type the following:
             +Burger,Meat|Veggie[,Salad][,Cheese][,Tomato]

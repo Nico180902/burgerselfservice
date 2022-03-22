@@ -1,14 +1,28 @@
 package com.ntraining.input.actions;
 
-public class CheckoutAction implements ActionValidator {
+import com.ntraining.Cart;
+
+public class CheckoutAction implements Action {
     public static final String ACTION_TOKEN = "Checkout";
 
+    private final Cart cart;
+
+    public CheckoutAction(Cart cart) {
+        this.cart = cart;
+    }
+
     @Override
-    public boolean isValidAction(String input) {
+    public boolean executeIfValid(String input) {
         if (input == null) {
             return false;
         }
 
-        return input.trim().equals(ACTION_TOKEN);
+        if (!input.trim().equals(ACTION_TOKEN)) {
+            return false;
+        }
+
+        cart.checkout();
+
+        return true;
     }
 }

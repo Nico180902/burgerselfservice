@@ -1,15 +1,13 @@
 package com.ntraining;
 
-import com.ntraining.input.BurgerBuildingException;
-
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 public class Cart {
-    private Collection<Burger> burgers = new ArrayList<>();
+    private final List<Burger> burgers = new ArrayList<>();
     private boolean isCheckedOut = false;
 
-    public Collection<Burger> getBurgers() {
+    public List<Burger> getBurgers() {
         return burgers;
     }
 
@@ -19,6 +17,12 @@ public class Cart {
         }
     }
 
+    public boolean removeBurgerByIndex(int index) {
+        Burger burger = burgers.remove(index);
+
+        return burger != null;
+    }
+
     public boolean removeBurger(Burger burger) {
         return burgers.remove(burger);
     }
@@ -26,21 +30,9 @@ public class Cart {
     /**
      * Must only be called when {@link this#getBurgers()} is not empty
      */
-    // checked exceptions have to be either added to method signature or caught
-//    public void checkout() throws BurgerBuildingException {
-    public void checkout() throws BurgerBuildingException {
+    public void checkout() {
         if (this.burgers.isEmpty()) {
-            // there are 2 types of exceptions, checked and unchecked.
-            // unchecked exceptions do not have to be "checked"
-//            throw new IllegalStateException("checkout was called even though cart is empty");
-//            try {
-////               throw new IllegalStateException("checkout was called even though cart is empty");
-//                throw new BurgerBuildingException();
-//
-//            } catch (BurgerBuildingException e) {
-//                System.out.println("");
-//            }
-              throw new BurgerBuildingException();
+            throw new IllegalStateException("checkout was called even though cart is empty");
         }
 
         isCheckedOut = true;
@@ -52,5 +44,25 @@ public class Cart {
             total += burger.getPrice();
         }
         return total;
+    }
+
+    public String getSummary() {
+        StringBuilder summary = new StringBuilder("Burgers in your cart: \n\n");
+        int burgerId = 1;
+
+        for (Burger burger : burgers) {
+            summary.append(burgerId).append(": ").append(burger);
+            burgerId++;
+        }
+
+        return summary.toString();
+    }
+
+    @Override
+    public String toString() {
+        return "Cart{" +
+                "burgers=" + burgers +
+                ", isCheckedOut=" + isCheckedOut +
+                '}';
     }
 }

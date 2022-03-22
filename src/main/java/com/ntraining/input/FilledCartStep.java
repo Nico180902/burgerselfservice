@@ -1,6 +1,12 @@
 package com.ntraining.input;
 
-public class FilledCartStep implements ExecutionStep<FilledCartInput> {
+import com.google.common.collect.ImmutableSet;
+import com.ntraining.Cart;
+import com.ntraining.input.actions.*;
+
+import java.util.Collection;
+
+public class FilledCartStep implements ExecutionStep {
 
     private static final String PROMPT =
             BurgerConstants.CART_SUMMARY_PROMPT
@@ -8,18 +14,32 @@ public class FilledCartStep implements ExecutionStep<FilledCartInput> {
             + BurgerConstants.REMOVE_BURGER_PROMPT
             + BurgerConstants.CHECKOUT_PROMPT;
 
+    private final Collection<Action> possibleActions;
+    private final Cart cart;
+
+    public FilledCartStep(Cart cart) {
+        this.cart = cart;
+        possibleActions = ImmutableSet.of(
+                new AddBurgerAction(cart),
+                new CheckoutAction(cart),
+                new RemoveBurgerAction(cart),
+                new SummaryAction(cart)
+        );
+    }
+
     @Override
     public String getPrompt() {
         return PROMPT;
     }
 
     @Override
-    public ValidatedInput<FilledCartInput> validate(String input) {
-        return null;
+    public Collection<Action> getPossibleActions() {
+        return possibleActions;
     }
 
     @Override
-    public void execute(FilledCartInput executable) {
-
+    public boolean isResponsible() {
+        return cart.getBurgers().size() != BurgerConstants.CART_MAX_SIZE &&
+                !cart.getBurgers().isEmpty();
     }
 }

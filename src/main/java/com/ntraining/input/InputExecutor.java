@@ -1,31 +1,36 @@
 package com.ntraining.input;
 
+import com.google.common.collect.ImmutableList;
 import com.ntraining.Cart;
 
-public class InputExecutor {
+import java.util.Collection;
 
-    private ExecutionStep<?> currentStep = new EmptyCartStep();
-    private final Cart cart;
-    private boolean shouldStop;
+public class InputExecutor {
+    private final Collection<ExecutionStep> executionSteps;
 
     public InputExecutor(Cart cart) {
-        this.cart = cart;
+        executionSteps = ImmutableList.of(
+                new EmptyCartStep(cart),
+                new FilledCartStep(cart),
+                new FullCartStep(cart)
+        );
     }
 
-    public ValidatedInput<?> validate(String stringInput) {
-        return currentStep.validate(stringInput);
+    public String getPrompt() {
+        ExecutionStep executionStep = executionSteps.stream()
+                .filter(ExecutionStep::isResponsible)
+                .findFirst()
+                .orElseThrow();
+
+        return executionStep.getPrompt();
     }
 
-    public boolean shouldStop() {
-        return shouldStop;
-    }
+    public void handleInput(String input) {
+        ExecutionStep executionStep = executionSteps.stream()
+                .filter(ExecutionStep::isResponsible)
+                .findFirst()
+                .orElseThrow();
 
-    public void executeIfValid(ValidatedInput<?> validatedInput) {
-        if (validatedInput.isValid()) {
-           return;
-        }
-
-        // casting an unknown type, not very safe. should only be used when we know what we are doing
-//        String emptyCartInput = (String) validatedInput.getInput();
+        executionStep.executeIfValid(input);
     }
 }
