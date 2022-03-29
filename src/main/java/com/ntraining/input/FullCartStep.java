@@ -37,6 +37,7 @@ public class FullCartStep implements ExecutionStep {
 
     @Override
     public boolean isResponsible() {
-        return cart.getBurgers().size() == BurgerConstants.CART_MAX_SIZE;
+        return !cart.isCheckedOut()
+                && cart.getBurgers().size() == BurgerConstants.CART_MAX_SIZE;
     }
 }

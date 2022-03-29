@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableSet;
 import com.ntraining.Cart;
 import com.ntraining.input.actions.Action;
 import com.ntraining.input.actions.AddBurgerAction;
+import com.ntraining.input.actions.RemoveBurgerAction;
 
 import java.util.Collection;
 
@@ -36,6 +37,6 @@ public class EmptyCartStep implements ExecutionStep {
 
     @Override
     public boolean isResponsible() {
-        return cart.getBurgers().isEmpty();
+        return !cart.isCheckedOut() && cart.getBurgers().isEmpty();
     }
 }

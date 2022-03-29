@@ -40,7 +40,7 @@ public class AddBurgerAction implements Action {
 
         String[] actionParts = input.split(",");
 
-        if (actionParts.length >= 2 && actionParts.length <= 5) {
+        if (actionParts.length < 2 || actionParts.length > 5) {
             return null;
         }
 
@@ -55,9 +55,9 @@ public class AddBurgerAction implements Action {
         }
         PattyType pattyType = pattyTypeForString(pattyTypeString);
 
-        List<String> actionList = Arrays.asList(actionParts);
+        List<String> actionList = new ArrayList<>(Arrays.asList(actionParts));
         actionList.remove(0);
-        actionList.remove(1);
+        actionList.remove(0);
 
         if (!INGREDIENTS_BY_STRING.keySet().containsAll(actionList)) {
             System.out.println("Invalid ingredient encountered");

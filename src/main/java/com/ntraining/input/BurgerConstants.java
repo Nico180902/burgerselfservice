@@ -12,6 +12,7 @@ public class BurgerConstants {
 
             | ... choose between two options
             [] ... optional
+            
             """;
 
     public static final String REMOVE_BURGER_PROMPT = """
@@ -19,16 +20,19 @@ public class BurgerConstants {
             -Burger,{id}
 
             {id} ... the id of the burger
+            
             """;
 
     public static final String CHECKOUT_PROMPT = """
             To complete your order type the following:
             """
-            + CheckoutAction.ACTION_TOKEN;
+            + CheckoutAction.ACTION_TOKEN
+            + "\n";
 
     public static final String CART_SUMMARY_PROMPT = """
             To view the summary of your cart type the following:
             """
-            + SummaryAction.ACTION_TOKEN;
+            + SummaryAction.ACTION_TOKEN
+            + "\n";
 
 }

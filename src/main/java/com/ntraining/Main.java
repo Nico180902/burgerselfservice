@@ -20,6 +20,10 @@ public class Main {
             inputExecutor.handleInput(stringInput);
 
             System.out.println(inputExecutor.getPrompt());
+
+            if (inputExecutor.shouldStop()) {
+                break;
+            }
         }
     }
 }

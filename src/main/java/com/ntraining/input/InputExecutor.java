@@ -12,8 +12,18 @@ public class InputExecutor {
         executionSteps = ImmutableList.of(
                 new EmptyCartStep(cart),
                 new FilledCartStep(cart),
-                new FullCartStep(cart)
+                new FullCartStep(cart),
+                new CheckedOutStep(cart)
         );
+    }
+
+    public boolean shouldStop() {
+        ExecutionStep executionStep = executionSteps.stream()
+                .filter(ExecutionStep::isResponsible)
+                .findFirst()
+                .orElseThrow();
+
+        return executionStep instanceof CheckedOutStep;
     }
 
     public String getPrompt() {

@@ -10,9 +10,9 @@ public class FilledCartStep implements ExecutionStep {
 
     private static final String PROMPT =
             BurgerConstants.CART_SUMMARY_PROMPT
-            + BurgerConstants.ADD_BURGER_PROMPT
-            + BurgerConstants.REMOVE_BURGER_PROMPT
-            + BurgerConstants.CHECKOUT_PROMPT;
+                    + BurgerConstants.ADD_BURGER_PROMPT
+                    + BurgerConstants.REMOVE_BURGER_PROMPT
+                    + BurgerConstants.CHECKOUT_PROMPT;
 
     private final Collection<Action> possibleActions;
     private final Cart cart;
@@ -39,7 +39,8 @@ public class FilledCartStep implements ExecutionStep {
 
     @Override
     public boolean isResponsible() {
-        return cart.getBurgers().size() != BurgerConstants.CART_MAX_SIZE &&
-                !cart.getBurgers().isEmpty();
+        return !cart.isCheckedOut()
+                && cart.getBurgers().size() != BurgerConstants.CART_MAX_SIZE
+                && !cart.getBurgers().isEmpty();
     }
 }
