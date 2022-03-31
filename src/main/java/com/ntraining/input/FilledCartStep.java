@@ -17,7 +17,7 @@ public class FilledCartStep implements ExecutionStep {
     private final Collection<Action> possibleActions;
     private final Cart cart;
 
-    public FilledCartStep(Cart cart) {
+    public FilledCartStep(Cart cart, ActionFactory actionFactory) {
         this.cart = cart;
         possibleActions = ImmutableSet.of(
                 new AddBurgerAction(cart),

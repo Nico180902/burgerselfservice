@@ -16,7 +16,7 @@ public class FullCartStep implements ExecutionStep {
     private final Collection<Action> possibleActions;
     private final Cart cart;
 
-    public FullCartStep(Cart cart) {
+    public FullCartStep(Cart cart, ActionFactory actionFactory) {
         this.cart = cart;
         possibleActions = ImmutableSet.of(
                 new CheckoutAction(cart),

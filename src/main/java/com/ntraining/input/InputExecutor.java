@@ -2,17 +2,18 @@ package com.ntraining.input;
 
 import com.google.common.collect.ImmutableList;
 import com.ntraining.Cart;
+import com.ntraining.input.actions.ActionFactory;
 
 import java.util.Collection;
 
 public class InputExecutor {
     private final Collection<ExecutionStep> executionSteps;
 
-    public InputExecutor(Cart cart) {
+    public InputExecutor(Cart cart, ActionFactory actionFactory) {
         executionSteps = ImmutableList.of(
-                new EmptyCartStep(cart),
-                new FilledCartStep(cart),
-                new FullCartStep(cart),
+                new EmptyCartStep(cart, actionFactory),
+                new FilledCartStep(cart, actionFactory),
+                new FullCartStep(cart, actionFactory),
                 new CheckedOutStep(cart)
         );
     }
