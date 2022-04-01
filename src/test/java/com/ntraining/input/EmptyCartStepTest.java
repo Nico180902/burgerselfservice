@@ -42,6 +42,7 @@ class EmptyCartStepTest {
         emptyCartStep = new EmptyCartStep(cartMock, actionFactoryMock);
     }
 
+
     @Test
     void getPossibleActions_includesOnlyAddBurgerAction() {
         Collection<Action> actions = emptyCartStep.getPossibleActions();

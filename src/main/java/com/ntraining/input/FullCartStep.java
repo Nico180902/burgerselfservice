@@ -19,9 +19,9 @@ public class FullCartStep implements ExecutionStep {
     public FullCartStep(Cart cart, ActionFactory actionFactory) {
         this.cart = cart;
         possibleActions = ImmutableSet.of(
-                new CheckoutAction(cart),
-                new RemoveBurgerAction(cart),
-                new SummaryAction(cart)
+                actionFactory.createRemoveBurgerAction(),
+                actionFactory.createSummaryAction(),
+                actionFactory.createCheckoutAction()
         );
     }
 
@@ -37,7 +37,6 @@ public class FullCartStep implements ExecutionStep {
 
     @Override
     public boolean isResponsible() {
-        return !cart.isCheckedOut()
-                && cart.getBurgers().size() == BurgerConstants.CART_MAX_SIZE;
+        return !cart.isCheckedOut() && cart.getBurgers().size() == BurgerConstants.CART_MAX_SIZE;
     }
 }

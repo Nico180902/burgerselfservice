@@ -20,10 +20,10 @@ public class FilledCartStep implements ExecutionStep {
     public FilledCartStep(Cart cart, ActionFactory actionFactory) {
         this.cart = cart;
         possibleActions = ImmutableSet.of(
-                new AddBurgerAction(cart),
-                new CheckoutAction(cart),
-                new RemoveBurgerAction(cart),
-                new SummaryAction(cart)
+                actionFactory.createAddBurgerAction(),
+                actionFactory.createRemoveBurgerAction(),
+                actionFactory.createSummaryAction(),
+                actionFactory.createCheckoutAction()
         );
     }
 
@@ -39,8 +39,6 @@ public class FilledCartStep implements ExecutionStep {
 
     @Override
     public boolean isResponsible() {
-        return !cart.isCheckedOut()
-                && cart.getBurgers().size() != BurgerConstants.CART_MAX_SIZE
-                && !cart.getBurgers().isEmpty();
+        return !cart.isCheckedOut() && cart.getBurgers().size() != BurgerConstants.CART_MAX_SIZE && !cart.getBurgers().isEmpty();
     }
 }
